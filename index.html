@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ask Her Out</title>
+  <link rel="stylesheet" href="./style.css" />
+  <!-- Include EmailJS Script -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("fXtzrTPNL5Q0nxFOa"); // Replace with your EmailJS Public Key
+    })();
+  </script>
+
+<style>
+  #name-input-section h1 {
+    margin-bottom: 15px; /* Adds space below the heading */
+  }
+
+  #name-input-section p {
+    margin-bottom: 10px; /* Adds space below the paragraph */
+  }
+
+  #name-input-section input {
+    margin-bottom: 15px; /* Adds space below the input field */
+    padding: 10px; /* Makes the input field visually balanced */
+    width: 100%; /* Ensures input field adapts to container width */
+    max-width: 300px; /* Sets a reasonable max width */
+  }
+
+  #name-input-section button {
+    padding: 10px 20px; /* Adds padding for the button */
+    background-color: #007bff; /* Button color */
+    color: white; /* Button text color */
+    border: none; /* Removes border */
+    border-radius: 5px; /* Adds rounded corners */
+    cursor: pointer; /* Shows pointer cursor */
+  }
+
+  #name-input-section button:hover {
+    background-color: #0056b3; /* Darker button color on hover */
+  }
+</style>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+
+  body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffe5e5;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    gap: 30px; /* Increased gap for better spacing between elements */
+    max-width: 500px;
+    margin: 20px;
+  }
+
+  /* GIF styling */
+  .container .tenor-gif-embed {
+    max-width: 60%; /* Ensure the gif is responsive */
+    height: auto;
+    display: block; /* Center the gif */
+    margin: 0 auto; /* Horizontally center the gif */
+  }
+
+  /* Heading text styling */
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px; /* Adds gap below the heading */
+  }
+
+  /* Description text styling */
+  p {
+    font-size: 18px;
+    margin-bottom: 30px; /* Adds gap below the description */
+    line-height: 1.5; /* Better line spacing for readability */
+  }
+
+  /* Button container styling */
+  .btn {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    width: 100%;
+  }
+
+  /* Button styling */
+  .btn a {
+    text-decoration: none;
+    color: #0e0e0e;
+    
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: background-color 0.3s ease; /* Smooth color transition */
+  }
+
+  /* Mobile responsive styling */
+  @media (max-width: 500px) {
+    .btn {
+      flex-direction: row; /* Keep buttons in a row on small screens */
+      justify-content: center; /* Center the buttons */
+      gap: 15px; /* Adjust gap between buttons */
+    }
+
+    .btn a {
+      padding: 12px 20px; /* Adjust padding on mobile */
+      width: 45%; /* Button width on mobile */
+    }
+  }
+</style>
+
+
+</head>
+<body>
+  <div class="container">
+    <div id="name-input-section">
+      <h1>Welcome! 😊</h1>
+      <p>Please enter your name to begin:</p>
+      <input type="text" id="username" placeholder="Enter your name" />
+      <button id="start-btn">Start</button>
+    </div>
+
+    <div id="question-section" style="display: none;">
+      <div
+      class="tenor-gif-embed"
+      data-postid="22885016"
+      data-share-method="host"
+      data-aspect-ratio="1.04918"
+      data-width="100%"
+      >
+        <a href="https://tenor.com/view/manja-gif-22885016">Manja Sticker</a> from
+        <a href="https://tenor.com/search/manja-stickers">Manja Stickers</a>
+      </div>
+      <script
+        type="text/javascript"
+        async
+        src="https://tenor.com/embed.js"
+      ></script>
+      <h1 id="question-heading">Do you love me? 🤗</h1>
+      <p>~I'm all yours, Main sirf apka hun</p>
+
+      <div class="btn">
+        <a href="yes.html" id="yes-button">Yes</a>
+        <a href="no1.html" id="no-button">No</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Elements
+    const nameInputSection = document.getElementById("name-input-section");
+    const questionSection = document.getElementById("question-section");
+    const usernameInput = document.getElementById("username");
+    const startButton = document.getElementById("start-btn");
+    const yesButton = document.getElementById("yes-button");
+    const noButton = document.getElementById("no-button");
+
+    let username = "";
+
+    // Start Button Click Handler
+    startButton.addEventListener("click", function () {
+      username = usernameInput.value.trim();
+      if (username === "") {
+        alert("Please enter your name!");
+        return;
+      }
+
+      // Show the question section
+      nameInputSection.style.display = "none";
+      questionSection.style.display = "block";
+
+      // Personalize the question
+      const questionHeading = document.getElementById("question-heading");
+      questionHeading.textContent = `Do you love ${username}? 🤗`;
+    });
+
+    // Yes Button Click Handler
+    yesButton.addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent navigation until the email is sent
+      emailjs
+        .send("service_sr4dj67", "template_t8s96cg", {
+          choice: "Yes",
+          question: `Do you love ${username}?`,
+          user_name: username,
+        })
+        .then(
+          function (response) {
+            console.log("Email sent successfully!", response.status, response.text);
+            window.location.href = "yes.html"; // Navigate after email is sent
+          },
+          function (error) {
+            console.error("Failed to send email:", error);
+          }
+        );
+    });
+
+    // No Button Click Handler
+    noButton.addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent navigation until the email is sent
+      emailjs
+        .send("service_sr4dj67", "template_t8s96cg", {
+          choice: "No",
+          question: `Do you love ${username}?`,
+          user_name: username,
+        })
+        .then(
+          function (response) {
+            console.log("Email sent successfully!", response.status, response.text);
+            window.location.href = "no1.html"; // Navigate after email is sent
+          },
+          function (error) {
+            console.error("Failed to send email:", error);
+          }
+        );
+    });
+  </script>
+</body>
+</html>
